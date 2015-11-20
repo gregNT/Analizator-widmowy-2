@@ -10,6 +10,8 @@ public class Main {
 
     public static void main(String args[]) {
 
+        //wczytanie wava
+
         WaveReader wr = new WaveReader("test.wav");
 
         float[] s = wr.get_data();
@@ -28,8 +30,17 @@ public class Main {
         }
 
 
+        //SFFT
+
+
+
+
+
+
+
         wr.draw_wave();
         wr.print_info();
+
 
     }
 
