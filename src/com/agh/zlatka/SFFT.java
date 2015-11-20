@@ -3,8 +3,19 @@ package com.agh.zlatka;
 
 public class SFFT {
 
+    private
 
-    public SFFT (float[] s) {
+    int N; //dlugosc okna
+    float overlap; //zakladka w procentach
+    int K; // ilosc okien ktore zmieszcza sie w sygnale
+    float[] s; //sygnal
+
+
+    public SFFT (float[] y, int NFFT, float Overlap) {
+
+        s= y;
+        N= NFFT;
+        overlap= Overlap;
 
 
 
