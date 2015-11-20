@@ -5,9 +5,9 @@ public class SFFT {
 
     private
 
-    int N; //dlugosc okna
+    float N; //dlugosc okna
     float overlap; //zakladka w procentach
-    int K; // ilosc okien ktore zmieszcza sie w sygnale
+    double K; // ilosc okien ktore zmieszcza sie w sygnale
     float[] s; //sygnal
 
 
@@ -15,9 +15,15 @@ public class SFFT {
 
         s= y;
         N= NFFT;
-        overlap= Overlap;
+        overlap= Overlap/100;
 
+        K=Math.floor((y.length-N)/(N*(1-overlap))+1);
 
+        for (int i=1; i<K+1; i++){
+
+            // FT = fft(y[N(i-1) : N*i-1]*okno);
+            // SFFT = [SFFT ; FT]
+        }
 
     }
 }
