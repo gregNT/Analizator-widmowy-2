@@ -3,45 +3,17 @@ package com.agh.zlatka;
 
 public class Main {
 
-
-    public static float[] y_r, y_l;
-
-
-
     public static void main(String args[]) {
 
-        //wczytanie wava
+        Signal waveform = new Signal("sound/iyeaou.wav");
 
-        WaveReader wr = new WaveReader("test.wav");
+        waveform.drawWave();
+        waveform.printInfo();
 
-        float[] s = wr.get_data();
+        // Z tego można by zrobić test konstruktora klasy Signal
+        float [] chLeft = waveform.getChannel(Signal.chName.CH_LEFT) ;
+        float [] chRight = waveform.getChannel(Signal.chName.CH_RIGHT) ;
 
-        int ch = wr.get_ch();
-
-
-        //podzielenie sygnalu na prawy i lewy kanal
-        y_r= new float[(s.length)/2];
-        y_l= new float[(s.length)/2];
-
-        for (int i=0; i<(s.length); i=i+ch) {
-
-            y_r[i/2] = s[i];
-            y_l[i/2] = s[i+1];
-        }
-
-
-        //SFFT
-
-
-
-
-
-
-
-        wr.draw_wave();
-        wr.print_info();
-
-
+        System.out.println("Ilość próbek:\n kanał lewy - " + chLeft.length + "\nkanał prawy - " + chRight.length);
     }
-
 }
