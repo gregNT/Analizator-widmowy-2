@@ -14,6 +14,6 @@ public class Main {
         float [] chLeft = waveform.getChannel(Signal.chName.CH_LEFT) ;
         float [] chRight = waveform.getChannel(Signal.chName.CH_RIGHT) ;
 
-        System.out.println("Ilość próbek:\n kanał lewy - " + chLeft.length + "\nkanał prawy - " + chRight.length);
+        System.out.println("Ilość próbek:\n kanał lewy - " + chLeft.length + "\nkanał prawy - " + chRight.length) ;
     }
 }
