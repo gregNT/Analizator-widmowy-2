@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String args[]) {
 
-        Signal waveform = new Signal("sound/iyeaou.wav");
+        Signal waveform = new Signal("sound/test_stereo.wav");
 
         waveform.drawWave();
         waveform.printInfo();
