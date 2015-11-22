@@ -85,6 +85,10 @@ public class Signal {
         return path ;
     }
 
+    public int getBitResolution() {
+        return bit ;
+    }
+
     /* Ta funkcja powinna obsługiwać przypadek, w którym nagranie ma jeden kanał,
      a użytkownik zażąda lewego lub prawego kanału. */
     public float [] getChannel(chName name) {
