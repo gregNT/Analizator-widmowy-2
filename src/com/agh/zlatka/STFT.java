@@ -31,11 +31,22 @@ public class STFT {
     }
 
     // Konstruktor podstawowy - przyjmuje wektor z danymi do transformacji.
+
+    // Zrobić przekazywanie całego obiektu Signal.
     STFT (float [] data) {
         FourierTransform ft = new FourierTransform(convertFloatsToDoubles(data)) ;
-        int wlen = 512 ;
-        double [][] STFTMatrix = ft.shortTime(wlen) ;
     }
+
+    // STFT
+    // setWindowLength(int wlen) ;
+    //      int wlen = 512 ;
+    // setWindowType(...) ;
+    // setOverlap(albo 0 albo 50%) ;
+    // calculate() ;
+    //      double [][] STFTMatrix = ft.shortTime(wlen) ;
+
+
+
 
 }
 
