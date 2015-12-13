@@ -7,7 +7,7 @@ import jm.util.* ;
 public class Signal {
 
     // Typy wyliczeniowe
-    public enum chName {CH_LEFT, CH_RIGHT}
+    public enum chName {CH_LEFT, CH_RIGHT, CH_SUM, CH_DIFF}
 
     // - - - Zmienne - - -
     private int fs, bit, ch ;

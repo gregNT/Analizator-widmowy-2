@@ -11,43 +11,83 @@ import flanagan.io.*;
 import flanagan.math.*;
 import flanagan.plot.*;
 
-// Parametry do obliczenia STFT: ch, window, noverlap, nfft, fs
+// Parametry do obliczenia STFT: ch, window, noverlap, nfft, fs.
 public class STFT {
+
+    // zmienne
+    FourierTransform ft;
+    double[][] STFTMatrix;
 
     // Konwersja tablicy float'ów na tablicę typu double. Jest to konieczne, bo biblioteka jMusic
     // operuje na typie float, a Flanangan operuje na double. Na razie nie wymyśliłem lepszego sposobu.
-    public static double[] convertFloatsToDoubles(float[] input)
-    {
-        if (input == null)
-        {
+    public static double[] convertFloatsToDoubles(float[] input) {
+        if (input == null) {
             return null;
         }
-        double [] output = new double[input.length] ;
-        for (int i = 0; i < input.length; i++)
-        {
-            output[i] = input[i] ;
+        double[] output = new double[input.length];
+        for (int i = 0; i < input.length; i++) {
+            output[i] = input[i];
         }
-        return output ;
+        return output;
     }
+
+
 
     // Konstruktor podstawowy - przyjmuje wektor z danymi do transformacji.
+    // Tu trzeba dopisać obsługę wyboru kanału: L, R, L+R/2 i L-R/2.
+    public STFT(float[] data) {
 
-    // Zrobić przekazywanie całego obiektu Signal.
-    STFT (float [] data) {
-        FourierTransform ft = new FourierTransform(convertFloatsToDoubles(data)) ;
+        ft = new FourierTransform(convertFloatsToDoubles(data)) ;
     }
 
-    // STFT
-    // setWindowLength(int wlen) ;
-    //      int wlen = 512 ;
-    // setWindowType(...) ;
-    // setOverlap(albo 0 albo 50%) ;
-    // calculate() ;
-    //      double [][] STFTMatrix = ft.shortTime(wlen) ;
+    // Oblicza STFT z ustawieniami z klasy Settings.
+    public void compute(Settings s, int fs) {
 
+        // Ustawienie kroku czasowego.
+        ft.setDeltaT(1 / (double) fs);
 
+        // Ustawienie okna.
+        switch (s.getWindowName()) {
+            case RECTANGULAR:
+                ft.setRectangular();
+                break;
+            case BARTLETT:
+                ft.setBartlett();
+                break;
+            case WELCH:
+                ft.setWelch();
+                break;
+            case HANN:
+                ft.setHann();
+                break;
+            case HAMMING:
+                ft.setHamming();
+                break;
+            case KAISER:
+                ft.setKaiser();
+                break;
+            case GAUSSIAN:
+                ft.setGaussian();
+                break;
+        }
 
+        // Nie wiem, czy ustawienie overlapa zadziała również do STFT, bo w dokumentacji
+        // klasy Flanagana jest tylko mowa o użyciu tego przy Power Spectrum.
+        switch (s.getOverlap()) {
+            case NONE:
+                ft.setOverlapOption(false);
+                break;
+            case HALF:
+                ft.setOverlapOption(true);
+                break;
+        }
 
+        // Ustawienie długości okna.
+        ft.setSegmentLength(s.getWindowLength());
+
+        // Wyznaczenie macierzy STFT.
+        STFTMatrix = ft.shortTime(s.getWindowLength());
+    }
 }
 
 
@@ -57,32 +97,4 @@ public class STFT {
 
 
 
-/* - początek kodu napisany przez Zbyszka
-public class SFFT {
 
-    private
-
-    float N; //dlugosc okna
-    float overlap; //zakladka w procentach
-    double K; // ilosc okien ktore zmieszcza sie w sygnale
-    float[] s; //sygnal
-
-
-    public SFFT (float[] y, int NFFT, float Overlap) {
-
-        s= y;
-        N= NFFT;
-        overlap= Overlap/100;
-
-        K=Math.floor((y.length-N)/(N*(1-overlap))+1);
-
-
-
-        for (int i=1; i<K+1; i++){
-
-            FT = fft(y[N(i-1) : N*i-1]*okno);
-            SFFT = [SFFT ; FT]
-        }
-
-    }
-*/

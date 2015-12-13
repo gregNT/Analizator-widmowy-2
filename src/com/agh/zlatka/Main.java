@@ -21,6 +21,6 @@ public class Main {
 
         Write.audio(chLeft, "test_stereo_2_ch_left.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
         Write.audio(chRight, "test_stereo_2_ch_right.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
-        
+
     }
 }
