@@ -15,8 +15,8 @@ import flanagan.plot.*;
 public class STFT {
 
     // zmienne
-    FourierTransform ft;
-    double[][] STFTMatrix;
+    private FourierTransform ft;
+    private double[][] STFTMatrix;
 
     // Konwersja tablicy float'ów na tablicę typu double. Jest to konieczne, bo biblioteka jMusic
     // operuje na typie float, a Flanangan operuje na double. Na razie nie wymyśliłem lepszego sposobu.
@@ -87,6 +87,10 @@ public class STFT {
 
         // Wyznaczenie macierzy STFT.
         STFTMatrix = ft.shortTime(s.getWindowLength());
+    }
+
+    public double[][] getSTFTMatrix() {
+        return STFTMatrix ;
     }
 }
 
