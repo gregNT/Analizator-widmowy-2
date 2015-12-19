@@ -10,7 +10,10 @@ public class Main {
         (głoska 'u', kanał lewy - sygnał akustyczny, kanał prawy - sygnał elektroglotograficzny. */
         Signal waveform = new Signal("sound/test_stereo_2.wav");
 
-        waveform.drawWave();
+        MyFrame okno = new MyFrame();
+
+
+       //waveform.drawWave();
         waveform.printInfo();
 
         // To właściwie test, czy separacja kanałów działa poprawnie (tylko pytanie, jak to przenieść do jUnit).
