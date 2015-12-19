@@ -35,9 +35,9 @@ public class STFT {
 
     // Konstruktor podstawowy - przyjmuje wektor z danymi do transformacji.
     // Tu trzeba dopisać obsługę wyboru kanału: L, R, L+R/2 i L-R/2.
-    public STFT(float[] data) {
+    public STFT(float[] signal) {
 
-        ft = new FourierTransform(convertFloatsToDoubles(data)) ;
+        ft = new FourierTransform(convertFloatsToDoubles(signal)) ;
     }
 
     // Oblicza STFT z ustawieniami z klasy Settings.

@@ -2,6 +2,8 @@ package com.agh.zlatka;
 
 import jm.util.* ;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String args[]) {
@@ -10,6 +12,7 @@ public class Main {
         (głoska 'u', kanał lewy - sygnał akustyczny, kanał prawy - sygnał elektroglotograficzny. */
         Signal waveform = new Signal("sound/test_stereo_2.wav");
 
+        /*
         waveform.drawWave();
         waveform.printInfo();
 
@@ -21,6 +24,8 @@ public class Main {
 
         Write.audio(chLeft, "test_stereo_2_ch_left.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
         Write.audio(chRight, "test_stereo_2_ch_right.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
+        */
+
 
     }
 }

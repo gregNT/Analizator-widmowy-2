@@ -1,4 +1,4 @@
-package com.agh.zlatka ;
+package com.agh.zlatka;
 
 import jm.gui.wave.WaveFileReader ;
 import jm.gui.wave.WaveView ;
@@ -11,11 +11,37 @@ public class Signal {
 
     // - - - Zmienne - - -
     private int fs, bit, ch ;
-    private float [] data, leftChannel, rightChannel ;
+    private float [] data, leftChannel, rightChannel, sum, diff ;
     private String path ;
     private WaveFileReader wv ;
 
-    // - - - Metody - - -
+    // - - - Metody prywatne. - - -
+
+    // suma: (L + R)/2
+    private float[] calculateAvgSum( float[] a, float[] b )
+    {
+        float[] c = new float[a.length];
+
+        for ( int i = 0; i < a.length; i++ )
+        {
+            c[i] = (a[i] + b[i]) / 2;
+        }
+        return c;
+    }
+
+    // różnica: (L - R)/2
+    private float[] calculateAvgDiff( float[] a, float[] b )
+    {
+        float[] c = new float[a.length];
+
+        for ( int i = 0; i < a.length; i++ )
+        {
+            c[i] = (a[i] - b[i]) / 2;
+        }
+        return c;
+    }
+
+    // - - - Metody publiczne - - -
 
     // Konstruktor podstawowy.
     public Signal (String wavePath) {
@@ -30,7 +56,7 @@ public class Signal {
         bit = wv.getBitResolution() ;
         ch = wv.getChannels() ;
 
-        // - - - Separacja kanałów. - - -
+        // - - - Separacja kanałów. (przenieść to do osobnej funkcji prywatnej) - - -
         if (ch == 2) {
 
             // Określenie długości kanału.
@@ -52,20 +78,15 @@ public class Signal {
             kanału przypisujemy ostatnią próbkę pliku wave,
             a ostatniej próbce prawego - zero (podejrzewam, że tak robi MATLAB).
             */
-            if (data.length % 2 == 1)
-                leftChannel[chLen - 1] = data[data.length - 1] ;
-                rightChannel[chLen - 1] = 0 ;
+            if (data.length % 2 == 1) {
+                leftChannel[chLen - 1] = data[data.length - 1];
+                rightChannel[chLen - 1] = 0;
+            }
         }
-    }
 
-    // Wyświetlenie parametrów pliku wave w konsoli.
-    public void printInfo() {
-        System.out.printf("Sample rate: %d, Bit depth: %d%n", fs, bit) ;
-    }
-
-    // Narysowanie oscylogramu poprzez "mini-GUI" wbudowane w bibliotekę jMusic
-    public void drawWave() {
-        WaveView wView = new WaveView(path) ;
+        // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
+        sum = calculateAvgSum(leftChannel, rightChannel) ;
+        diff = calculateAvgDiff(leftChannel, rightChannel) ;
     }
 
     // "Gettery" - zwracają wartości składowych prywatnych.
@@ -105,11 +126,21 @@ public class Signal {
                 else
                     System.out.println("Nagranie posiada tylko 1 kanał.") ;
                     return new float [] {} ;
+            case CH_SUM:
+                if (ch == 2)
+                    return sum ;
+                else
+                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
+                return new float [] {} ;
+            case CH_DIFF:
+                if (ch == 2)
+                    return diff ;
+                else
+                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
+                return new float [] {} ;
             // Ten przypadek nie powinien nigdy nastąpić.
             default:    return data ;
         }
     }
-
-
 }
 
