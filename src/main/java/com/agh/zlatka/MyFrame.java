@@ -20,6 +20,8 @@ public class MyFrame extends JFrame {
     JFileChooser fc;
 
     Signal waveform;
+    DrawWaveform wavL;
+    DrawWaveform wavR;
 
     public
     String nazwa_pliku;
@@ -31,6 +33,7 @@ public class MyFrame extends JFrame {
 
 
     public MyFrame() {
+
 
 
         //menus
@@ -162,7 +165,7 @@ public class MyFrame extends JFrame {
 
         //labels
 
-        Update();
+        Update_Labels();
 
 
         //settings od frame
@@ -176,7 +179,7 @@ public class MyFrame extends JFrame {
 
     // Update
 
-    public void Update(){
+    public void Update_Labels(){
 
         label2.setText("Plik:  " + nazwa_pliku);
         label4.setText("l. kanałów: " + channels);
@@ -219,12 +222,18 @@ public class MyFrame extends JFrame {
                 path = file.getAbsolutePath();
 
                 waveform = new Signal(path);
+                float [] chLeft = waveform.getChannel(Signal.chName.CH_LEFT);
+                float [] chRight = waveform.getChannel(Signal.chName.CH_RIGHT);
+                wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
+                wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
+
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
                 fs = waveform.getFs();
                 dt = 1000/fs;
                 df = 3.1;
-                Update();
+                Update_Labels();
+
             }
 
         }
