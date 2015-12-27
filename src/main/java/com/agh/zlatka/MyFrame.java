@@ -23,6 +23,9 @@ public class MyFrame extends JFrame {
     DrawWaveform wavL;
     DrawWaveform wavR;
 
+    Settings settings;
+    STFT spectre;
+
     public
     String nazwa_pliku;
     int channels;
@@ -227,6 +230,9 @@ public class MyFrame extends JFrame {
                 wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
                 wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
 
+                settings = new Settings();
+                ReadSettings();
+
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
                 fs = waveform.getFs();
@@ -239,7 +245,19 @@ public class MyFrame extends JFrame {
         }
     }
 
+    // Updtade STFT Settings
+    class UpdateSettings  implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
 
+        }
+    }
+
+    public void ReadSettings()
+    {
+        //settings.setWindowName();
+    }
 
 }
 

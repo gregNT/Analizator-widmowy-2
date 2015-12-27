@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * Created by Zbigu on 2015-12-23.
  */
-public class DrawWaveform {
+public class DrawSpectrogram {
 
     private
     JPanel jPanel2;
@@ -18,7 +18,7 @@ public class DrawWaveform {
 
 
 
-    public DrawWaveform(float [] data, JPanel parent, int X, int Y, int SizeX, int SizeY)
+    public DrawSpectrogram(double [][] data, JPanel parent, int X, int Y, int SizeX, int SizeY)
     {
         x=X; y=Y; sizeX=SizeX; sizeY=SizeY;
 
@@ -34,15 +34,15 @@ public class DrawWaveform {
             float max=0;
             float min=0;
 
-            for(int k = i*skala; k < (i+1)*skala; k++) {
-                if(data[k] > max) {
-                    max = data[k];
-                }
-                if(data[k] < min) {
-                    min = data[k];
-                }
-
-            }
+      //      for(int k = i*skala; k < (i+1)*skala; k++) {
+      //          if(data[k] > max) {
+      //              max = data[k];
+      //          }
+      //          if(data[k] < min) {
+      //              min = data[k];
+      //          }
+//
+      //      }
 
 
             punkty.add(-(sizeY/2)*max + sizeY/2);
