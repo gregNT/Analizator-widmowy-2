@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.text.NumberFormat;
 
 public class MyFrame extends JFrame {
 
@@ -33,6 +34,7 @@ public class MyFrame extends JFrame {
     int fs;
     double dt;
     double df;
+    int wlen;
 
 
     public MyFrame() {
@@ -184,12 +186,17 @@ public class MyFrame extends JFrame {
 
     public void Update_Labels(){
 
+        final NumberFormat nf = NumberFormat.getInstance() ;
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        nf.setGroupingUsed(false);
+
         label2.setText("Plik:  " + nazwa_pliku);
         label4.setText("l. kanałów: " + channels);
         String fs_str = "fs= "+ fs + " Hz";
         label5.setText(fs_str);
-        label10.setText("dt: " + dt + " ms");
-        label11.setText("df: " + df + " Hz");
+        label10.setText("dt: " + nf.format(dt) + " ms");
+        label11.setText("df: " + nf.format(df) + " Hz");
 
     }
 
@@ -236,8 +243,9 @@ public class MyFrame extends JFrame {
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
                 fs = waveform.getFs();
-                dt = 1000/fs;
-                df = 3.1;
+                wlen = settings.getWindowLength();
+                dt = 1000.0/fs; // w [ms]
+                df = (double) fs/wlen;
                 Update_Labels();
 
             }

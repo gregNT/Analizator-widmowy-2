@@ -10,7 +10,7 @@ public class Signal {
     public enum chName {CH_LEFT, CH_RIGHT, CH_SUM, CH_DIFF}
 
     // - - - Zmienne - - -
-    private int fs, bit, ch ;
+    private int fs, bit, ch, N ;
     private float [] data, leftChannel, rightChannel, sum, diff ;
     private String path ;
     private WaveFileReader wv ;
@@ -87,6 +87,8 @@ public class Signal {
         // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
         sum = calculateAvgSum(leftChannel, rightChannel) ;
         diff = calculateAvgDiff(leftChannel, rightChannel) ;
+
+        N = leftChannel.length ; // długość pojedynczego kanału
     }
 
     // "Gettery" - zwracają wartości składowych prywatnych.
@@ -141,6 +143,10 @@ public class Signal {
             // Ten przypadek nie powinien nigdy nastąpić.
             default:    return data ;
         }
+    }
+
+    public int getChLen() {
+        return N ;
     }
 }
 
