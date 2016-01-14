@@ -243,7 +243,7 @@ public class MyFrame extends JFrame {
                 settings = new Settings();
                 ReadSettings();
 
-                fft = new FFT(chLeft);
+                fft = new FFT(chLeft, fs);
                 double [] fft_magn  = fft.getMagnitude();
                 drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
 

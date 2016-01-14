@@ -31,7 +31,7 @@ public class DrawFFT {
         jPanel2.setBackground(Color.black);
         jPanel2.setLayout(null);
 
-        int skala=2* data.length/sizeX;
+        int skala= data.length/sizeX;
         double max_magn=0;
 
         for (int i=0; i<data.length/skala; i++){
@@ -80,7 +80,7 @@ public class DrawFFT {
 
             for (int i=0; i<punkty.size(); i++){
 
-                g.drawLine(i, sizeY, i, punkty.get(i).intValue());
+                g.drawLine(i, sizeY-1, i, punkty.get(i).intValue());
                 g.setColor(Color.red);
             }
         }

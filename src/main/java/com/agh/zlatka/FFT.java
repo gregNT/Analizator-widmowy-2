@@ -31,6 +31,7 @@ public class FFT {
         ft = new FourierTransform(convertFloatsToDoubles(signal)) ;
         fs = sampling_freq ;
         ft.setDeltaT(1.0 / fs);
+        compute();
     }
 
     // Oblicza FFT
@@ -46,7 +47,7 @@ public class FFT {
         double[] alternateFFTResult = ft.getTransformedDataAsAlternate() ;
 
         for (int i = 0; i < n; i++) {
-            magnitude[i] = Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2) + Math.pow(alternateFFTResult[2 * i + 1], 2)) ;
+            magnitude[i] =20* Math.log10( Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2) + Math.pow(alternateFFTResult[2 * i + 1], 2))) ;
             freq_vector[i] = (double) i / (n*ft.getDeltaT()) ;
         }
     }
