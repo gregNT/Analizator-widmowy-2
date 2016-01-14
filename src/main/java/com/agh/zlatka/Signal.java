@@ -57,7 +57,21 @@ public class Signal {
         ch = wv.getChannels() ;
 
         // - - - Separacja kanałów. (przenieść to do osobnej funkcji prywatnej) - - -
-        if (ch == 2) {
+        if (ch == 1){
+
+            int chLen = data.length;
+
+            leftChannel = new float[chLen] ;
+            rightChannel = new float[chLen] ;
+
+            for (int i = 0; i < chLen; i++) {
+                leftChannel[i] = data[i];
+                rightChannel[i] = 0;
+            }
+
+        }
+
+        else if (ch == 2) {
 
             // Określenie długości kanału.
             int chLen ;
@@ -85,16 +99,12 @@ public class Signal {
         }
 
         // Jeśli sygnał stereo to oblicz sumę i różnicę
-        if (ch == 2) {
+        //if (ch == 2) {
             // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
             sum = calculateAvgSum(leftChannel, rightChannel);
             diff = calculateAvgDiff(leftChannel, rightChannel);
-        }
-        // Jeśli sygnał mono to pomiń obliczanie sumy i różnicy.
-        else {
-            sum = null ;
-            diff = null ;
-        }
+       // }
+
 
 
 
@@ -126,29 +136,21 @@ public class Signal {
     public float [] getChannel(chName name) {
         switch (name) {
             case CH_LEFT:
-                if (ch == 2)
+
                     return leftChannel ;
-                else
-                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
-                    return new float [] {} ;
+
             case CH_RIGHT:
-                if (ch == 2)
+
                     return rightChannel ;
-                else
-                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
-                    return new float [] {} ;
+
             case CH_SUM:
-                if (ch == 2)
+
                     return sum ;
-                else
-                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
-                return new float [] {} ;
+
             case CH_DIFF:
-                if (ch == 2)
+
                     return diff ;
-                else
-                    System.out.println("Nagranie posiada tylko 1 kanał.") ;
-                return new float [] {} ;
+
             // Ten przypadek nie powinien nigdy nastąpić.
             default:    return data ;
         }
