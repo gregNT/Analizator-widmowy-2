@@ -26,7 +26,6 @@ public class MyFrame extends JFrame {
     DrawFFT drawFFT;
 
     FFT  fft;
-    Settings settings;
 
 
     public
@@ -240,8 +239,7 @@ public class MyFrame extends JFrame {
                 wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
 
 
-                settings = new Settings();
-                ReadSettings();
+
 
                 fft = new FFT(chLeft, fs);
                 double [] fft_magn  = fft.getMagnitude();
@@ -250,7 +248,6 @@ public class MyFrame extends JFrame {
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
                 fs = waveform.getFs();
-                wlen = settings.getWindowLength();
                 dt = 1000.0/fs; // w [ms]
                 df = (double) fs/chLeft.length;
                 Update_Labels();
