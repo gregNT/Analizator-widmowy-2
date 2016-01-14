@@ -2,9 +2,9 @@ package com.agh.zlatka;
 
 //import jm.util.* ;
 
-import com.musicg.graphic.GraphicRender;
-import com.musicg.wave.Wave;
-import com.musicg.wave.extension.Spectrogram;
+//import com.musicg.graphic.GraphicRender;
+//import com.musicg.wave.Wave;
+//import com.musicg.wave.extension.Spectrogram;
 
 
 public class Main {

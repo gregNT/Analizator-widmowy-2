@@ -23,9 +23,11 @@ public class MyFrame extends JFrame {
     Signal waveform;
     DrawWaveform wavL;
     DrawWaveform wavR;
+    DrawFFT drawFFT;
 
+    FFT  fft;
     Settings settings;
-    STFT spectre;
+
 
     public
     String nazwa_pliku;
@@ -237,15 +239,20 @@ public class MyFrame extends JFrame {
                 wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
                 wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
 
+
                 settings = new Settings();
                 ReadSettings();
+
+                fft = new FFT(chLeft);
+                double [] fft_magn  = fft.getMagnitude();
+                drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
 
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
                 fs = waveform.getFs();
                 wlen = settings.getWindowLength();
                 dt = 1000.0/fs; // w [ms]
-                df = (double) fs/wlen;
+                df = (double) fs/chLeft.length;
                 Update_Labels();
 
             }

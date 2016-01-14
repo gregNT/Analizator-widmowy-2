@@ -28,6 +28,7 @@ public class FFT {
     public FFT(float[] signal) {
 
         ft = new FourierTransform(convertFloatsToDoubles(signal)) ;
+        compute();
     }
 
     // Oblicza FFT
@@ -42,7 +43,7 @@ public class FFT {
         double[] alternateFFTResult = ft.getTransformedDataAsAlternate();
 
         for (int i = 0; i < (n); i++)
-            magnitude[i] =  Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2)  + Math.pow(alternateFFTResult[2 * i + 1], 2)) ;
+            magnitude[i] = 20* Math.log10(  Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2)  + Math.pow(alternateFFTResult[2 * i + 1], 2))) ;
     }
 
     public double [] getMagnitude() {
