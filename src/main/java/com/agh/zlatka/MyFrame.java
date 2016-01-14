@@ -27,6 +27,9 @@ public class MyFrame extends JFrame {
 
     FFT  fft;
 
+    float [] chLeft;
+    float [] chRight;
+
 
     public
     String nazwa_pliku;
@@ -35,7 +38,6 @@ public class MyFrame extends JFrame {
     int fs;
     double dt;
     double df;
-    int wlen;
 
 
     public MyFrame() {
@@ -233,17 +235,10 @@ public class MyFrame extends JFrame {
                 path = file.getAbsolutePath();
 
                 waveform = new Signal(path);
-                float [] chLeft = waveform.getChannel(Signal.chName.CH_LEFT);
-                float [] chRight = waveform.getChannel(Signal.chName.CH_RIGHT);
-                wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
-                wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
+                chLeft = waveform.getChannel(Signal.chName.CH_LEFT);
+                chRight = waveform.getChannel(Signal.chName.CH_RIGHT);
 
-
-
-
-                fft = new FFT(chLeft, fs);
-                double [] fft_magn  = fft.getMagnitude();
-                drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
+                Update_Panels();
 
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
@@ -266,10 +261,17 @@ public class MyFrame extends JFrame {
         }
     }
 
-    public void ReadSettings()
+    public void Update_Panels()
     {
-        //settings.setWindowName();
+        wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
+        wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
+
+        fft = new FFT(waveform, Signal.chName.CH_SUM);
+        double [] fft_magn  = fft.getMagnitude();
+        drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
     }
+
+
 
 }
 
