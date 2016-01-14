@@ -138,6 +138,7 @@ public class MyFrame extends JFrame {
         kanal.setSelectedIndex(2);
         kanal.setBounds(680, 170, 100, 30);
         panel.add(kanal);
+        kanal.addActionListener(new UpdateSettings());
 
         String[] oknoStrings = { "RECTANGULAR", "BARTLETT", "WELCH", "HANN", "HAMMING", "KAISER", "GAUSSIAN" };
         okno = new JComboBox(oknoStrings);
@@ -237,8 +238,10 @@ public class MyFrame extends JFrame {
                 waveform = new Signal(path);
                 chLeft = waveform.getChannel(Signal.chName.CH_LEFT);
                 chRight = waveform.getChannel(Signal.chName.CH_RIGHT);
+                wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
+                wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
 
-                Update_Panels();
+                Update_Panels(Signal.chName.CH_SUM);
 
                 nazwa_pliku = file.getName();
                 channels = waveform.getNumOfCh();
@@ -257,17 +260,31 @@ public class MyFrame extends JFrame {
     {
         public void actionPerformed(ActionEvent e)
         {
+            JComboBox cb = (JComboBox)e.getSource();
+            String channels = (String)cb.getSelectedItem();
+
+            if (channels.equals("L")) {
+                Update_Panels(Signal.chName.CH_LEFT);
+            }
+            else if (channels.equals("R")) {
+                Update_Panels(Signal.chName.CH_RIGHT);
+            }
+            else if (channels.equals("(L+R)/2")) {
+                Update_Panels(Signal.chName.CH_SUM);
+            }
+            else if (channels.equals("(L-R)/2")) {
+                Update_Panels(Signal.chName.CH_DIFF);
+            }
 
         }
     }
 
-    public void Update_Panels()
+    public void Update_Panels(Signal.chName channels)
     {
-        wavL = new DrawWaveform(chLeft, panel, 10, 10, 580, 100);
-        wavR = new DrawWaveform(chRight, panel, 10, 120, 580, 100);
 
-        fft = new FFT(waveform, Signal.chName.CH_SUM);
+        fft = new FFT(waveform, channels);
         double [] fft_magn  = fft.getMagnitude();
+        
         drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
     }
 
