@@ -23,9 +23,10 @@ public class FFTTest {
         waveform = new Signal("sound/STFT_stereo_2.wav") ;
         float [] leftChannel = waveform.getChannel(Signal.chName.CH_LEFT) ;
 
-        waveform_transformed = new FFT(leftChannel) ;
+        waveform_transformed = new FFT(leftChannel, waveform.getFs()) ;
 
         waveform_transformed.compute() ;
+        double [] freqVector = waveform_transformed.getFreqVector() ;
 
         double [] expectedData = {
                 0.151458740234375,
@@ -55,7 +56,7 @@ public class FFTTest {
         waveform = new Signal("sound/stereo_2.wav") ;
         float [] leftChannel = waveform.getChannel(Signal.chName.CH_LEFT) ;
 
-        waveform_transformed = new FFT(leftChannel) ;
+        waveform_transformed = new FFT(leftChannel, waveform.getFs()) ;
 
         waveform_transformed.compute() ;
 

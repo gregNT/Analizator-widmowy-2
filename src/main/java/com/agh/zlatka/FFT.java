@@ -8,7 +8,9 @@ public class FFT {
 
     // zmienne
     private FourierTransform ft ;
+    private int fs ;
     private double [] magnitude ;
+    private double [] freq_vector ;
 
     // Konwersja tablicy float'ów na tablicę typu double. Jest to konieczne, bo biblioteka jMusic
     // operuje na typie float, a Flanangan operuje na double. Nie wymyśliłem lepszego sposobu.
@@ -24,11 +26,11 @@ public class FFT {
     }
 
     // Konstruktor podstawowy - przyjmuje wektor z danymi do transformacji.
-    // Tu trzeba dopisać obsługę wyboru kanału: L, R, L+R/2 i L-R/2.
-    public FFT(float[] signal) {
+    public FFT(float[] signal, int sampling_freq) {
 
         ft = new FourierTransform(convertFloatsToDoubles(signal)) ;
-        compute();
+        fs = sampling_freq ;
+        ft.setDeltaT(1.0 / fs);
     }
 
     // Oblicza FFT
@@ -36,24 +38,28 @@ public class FFT {
 
         int n = ft.getUsedDataLength() ;
         magnitude = new double[n] ;
+        freq_vector = new double[n] ;
 
         // Obliczenie FFT.
         ft.transform();
 
-        double[] alternateFFTResult = ft.getTransformedDataAsAlternate();
+        double[] alternateFFTResult = ft.getTransformedDataAsAlternate() ;
 
-        for (int i = 0; i < (n); i++)
-            magnitude[i] = 20* Math.log10(  Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2)  + Math.pow(alternateFFTResult[2 * i + 1], 2))) ;
+        for (int i = 0; i < n; i++) {
+            magnitude[i] = Math.sqrt(Math.pow(alternateFFTResult[2 * i], 2) + Math.pow(alternateFFTResult[2 * i + 1], 2)) ;
+            freq_vector[i] = (double) i / (n*ft.getDeltaT()) ;
+        }
     }
 
     public double [] getMagnitude() {
         return magnitude ;
     }
 
+    public double [] getFreqVector() {
+        return freq_vector ;
+    }
+
     public void printMagnitude() {
-       // for (int i = 0; i < magnitude.length; i++)
-        //    System.out.print(magnitude[i] + " ");
-       // System.out.println();
         for (double x : magnitude)
             System.out.print(x + " ") ;
         System.out.println() ;
