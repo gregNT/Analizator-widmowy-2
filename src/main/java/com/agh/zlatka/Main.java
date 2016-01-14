@@ -1,6 +1,11 @@
 package com.agh.zlatka;
 
-import jm.util.* ;
+//import jm.util.* ;
+
+import com.musicg.graphic.GraphicRender;
+import com.musicg.wave.Wave;
+import com.musicg.wave.extension.Spectrogram;
+
 
 public class Main {
 
@@ -26,6 +31,12 @@ public class Main {
 
         //Write.audio(chLeft, "test_stereo_2_ch_left.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
         //Write.audio(chRight, "test_stereo_2_ch_right.wav", 1, waveform.getFs(), waveform.getBitResolution()) ;
+
+
+
+
+
+
 
     }
 }

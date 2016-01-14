@@ -24,8 +24,8 @@ public class Settings {
     public Settings() {
         currentChannel = Signal.chName.CH_LEFT ;
         windowName = wName.RECTANGULAR ;
-        windowLength = 512 ;
-        overlap = overlapVal.NONE ;
+        windowLength = 128 ;
+        overlap = overlapVal.HALF ;
     }
 
     // - - - Gettery - - -

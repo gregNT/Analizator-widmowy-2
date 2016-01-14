@@ -19,7 +19,7 @@ public class STFT {
     private double[][] STFTMatrix;
 
     // Konwersja tablicy float'ów na tablicę typu double. Jest to konieczne, bo biblioteka jMusic
-    // operuje na typie float, a Flanangan operuje na double. Na razie nie wymyśliłem lepszego sposobu.
+    // operuje na typie float, a Flanangan operuje na double. Nie wymyśliłem lepszego sposobu.
     public static double[] convertFloatsToDoubles(float[] input) {
         if (input == null) {
             return null;
@@ -75,15 +75,15 @@ public class STFT {
         // klasy Flanagana jest tylko mowa o użyciu tego przy Power Spectrum.
         switch (s.getOverlap()) {
             case NONE:
-                ft.setOverlapOption(false);
+                ft.setOverlapOption(false); // overlap: 0%
                 break;
             case HALF:
-                ft.setOverlapOption(true);
+                ft.setOverlapOption(true); // overlap: 50%
                 break;
         }
 
         // Ustawienie długości okna.
-        ft.setSegmentLength(s.getWindowLength());
+        //ft.setSegmentLength(s.getWindowLength());
 
         // Wyznaczenie macierzy STFT.
         STFTMatrix = ft.shortTime(s.getWindowLength());
@@ -91,6 +91,29 @@ public class STFT {
 
     public double[][] getSTFTMatrix() {
         return STFTMatrix ;
+    }
+
+    /*
+    public void printSTFTMatrix(double [][] STFTMatrix) {
+        int row = STFTMatrix.length ;
+        int col = STFTMatrix[0].length ;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++)
+                System.out.print(STFTMatrix[i][j] + " ");
+            System.out.println() ;
+        }
+    }
+    */
+
+    public void printSTFTMatrix(String fileName) {
+        ft.printShortTime(fileName);
+    }
+    public void plotSTFTMatrix(String graphTitle) {
+        ft.plotShortTime(graphTitle);
+    }
+
+    public int getOriginalDataLength() {
+        return ft.getOriginalDataLength() ;
     }
 }
 

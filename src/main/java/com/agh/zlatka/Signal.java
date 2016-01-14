@@ -84,11 +84,22 @@ public class Signal {
             }
         }
 
-        // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
-        sum = calculateAvgSum(leftChannel, rightChannel) ;
-        diff = calculateAvgDiff(leftChannel, rightChannel) ;
+        // Jeśli sygnał stereo to oblicz sumę i różnicę
+        if (ch == 2) {
+            // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
+            sum = calculateAvgSum(leftChannel, rightChannel);
+            diff = calculateAvgDiff(leftChannel, rightChannel);
+            N = leftChannel.length ; // długość pojedynczego kanału
+        }
+        // Jeśli sygnał mono to pomiń obliczanie sumy i różnicy.
+        else {
+            sum = null ;
+            diff = null ;
+            N = data.length ;
+        }
 
-        N = leftChannel.length ; // długość pojedynczego kanału
+
+
     }
 
     // "Gettery" - zwracają wartości składowych prywatnych.
