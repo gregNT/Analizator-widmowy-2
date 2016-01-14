@@ -109,16 +109,7 @@ public class MyFrame extends JFrame {
         label7.setBounds(610, 260, 70, 30);
         label7.setFont(myFont);
         panel.add(label7);
-
-        label8 = new JLabel("Rozmiar:",JLabel.LEFT);
-        label8.setBounds(610, 350, 70, 30);
-        label8.setFont(myFont);
-        panel.add(label8);
-
-        label9 = new JLabel("Zakładka:",JLabel.LEFT);
-        label9.setBounds(610, 440, 70, 30);
-        label9.setFont(myFont);
-        panel.add(label9);
+        
 
         label10 = new JLabel("dt: " + dt + " ms",JLabel.LEFT);
         label10.setBounds(610, 120, 95, 30);
@@ -146,17 +137,6 @@ public class MyFrame extends JFrame {
         okno.setBounds(680, 260, 100, 30);
         panel.add(okno);
 
-        String[] rozmiarStrings = { "128", "256", "512", "1024", "2048", "4096" };
-        rozmiar = new JComboBox(rozmiarStrings);
-        rozmiar.setSelectedIndex(2);
-        rozmiar.setBounds(680, 350, 100, 30);
-        panel.add(rozmiar);
-
-        String[] zakladkaStrings = { "0 %", "25 %", "50 %", "75 %" };
-        zakladka = new JComboBox(zakladkaStrings);
-        zakladka.setSelectedIndex(2);
-        zakladka.setBounds(680, 440, 100, 30);
-        panel.add(zakladka);
 
         //file chooser
 
@@ -281,10 +261,8 @@ public class MyFrame extends JFrame {
 
     public void Update_Panels(Signal.chName channels)
     {
-
         fft = new FFT(waveform, channels);
         double [] fft_magn  = fft.getMagnitude();
-        
         drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
     }
 

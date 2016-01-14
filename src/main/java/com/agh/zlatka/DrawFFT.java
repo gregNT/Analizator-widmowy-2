@@ -13,8 +13,9 @@ import javax.swing.*;
  */
 public class DrawFFT {
 
-    private
+    public
     JPanel jPanel2;
+    private
     List<Double> punkty = new ArrayList<Double>();
     List<Double> punkty2 = new ArrayList<Double>();
     int x, y, sizeX, sizeY;
