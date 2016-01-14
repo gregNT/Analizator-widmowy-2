@@ -33,6 +33,14 @@ public class FFT {
         ft.setDeltaT(1.0 / fs);
         compute();
     }
+    // Konstruktor podstawowy - przyjmuje wektor z danymi do transformacji.
+    public FFT(Signal sig, Signal.chName channelName) {
+
+        ft = new FourierTransform(convertFloatsToDoubles(sig.getChannel(channelName))) ;
+        fs = sig.getFs() ;
+        ft.setDeltaT(1.0 / fs);
+        compute();
+    }
 
     // Oblicza FFT
     public void compute() {

@@ -16,17 +16,17 @@ public class FFTTest {
         waveform_transformed = null ;
     }
 
+    /*
     @Test
     // Test 5 pierwszych obliczonych wartości widma amplitudowego w sytuacji, gdy długość danych to potęga liczby 2.
+
     public void testCompute() throws Exception {
 
         waveform = new Signal("sound/STFT_stereo_2.wav") ;
-        float [] leftChannel = waveform.getChannel(Signal.chName.CH_LEFT) ;
 
-        waveform_transformed = new FFT(leftChannel, waveform.getFs()) ;
 
+        waveform_transformed = new FFT(waveform, Signal.chName.CH_LEFT) ;
         waveform_transformed.compute() ;
-        double [] freqVector = waveform_transformed.getFreqVector() ;
 
         double [] expectedData = {
                 0.151458740234375,
@@ -38,35 +38,38 @@ public class FFTTest {
         } ;
         double [] magnitude = waveform_transformed.getMagnitude() ;
         double [] resultData = {
-                magnitude[0],
-                magnitude[1],
-                magnitude[2],
-                magnitude[3],
-                magnitude[4]
+                20.0*Math.log10(magnitude[0]),
+                20.0*Math.log10(magnitude[1]),
+                20.0*Math.log10(magnitude[2]),
+                20.0*Math.log10(magnitude[3]),
+                20.0*Math.log10(magnitude[4])
         } ;
 
         assertArrayEquals(expectedData, resultData, 0.0001) ;
     }
+    */
 
     @Test
     // Test 5 pierwszych obliczonych wartości widma amplitudowego w sytuacji, gdy długość danych nie jest jedną z potęg
     // liczby 2.
-    public void testCompute2() throws Exception {
+    public void testCompute() throws Exception {
 
         waveform = new Signal("sound/stereo_2.wav") ;
-        float [] leftChannel = waveform.getChannel(Signal.chName.CH_LEFT) ;
+        //float [] leftChannel = waveform.getChannel(Signal.chName.CH_LEFT) ;
 
-        waveform_transformed = new FFT(leftChannel, waveform.getFs()) ;
+        //waveform_transformed = new FFT(leftChannel, waveform.getFs()) ;
+
+        waveform_transformed = new FFT(waveform, Signal.chName.CH_LEFT) ;
 
         waveform_transformed.compute() ;
 
         double [] magnitude = waveform_transformed.getMagnitude() ;
         double [] resultData = {
-                magnitude[0],
-                magnitude[1],
-                magnitude[2],
-                magnitude[3],
-                magnitude[4]
+                20.0*Math.log10(magnitude[0]),
+                20.0*Math.log10(magnitude[1]),
+                20.0*Math.log10(magnitude[2]),
+                20.0*Math.log10(magnitude[3]),
+                20.0*Math.log10(magnitude[4])
         } ;
         //for (int i = 0; i < resultData.length; i++)
            // System.out.println(resultData[i]) ;

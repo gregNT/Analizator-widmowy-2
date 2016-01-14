@@ -10,7 +10,7 @@ public class Signal {
     public enum chName {CH_LEFT, CH_RIGHT, CH_SUM, CH_DIFF}
 
     // - - - Zmienne - - -
-    private int fs, bit, ch, N ;
+    private int fs, bit, ch;
     private float [] data, leftChannel, rightChannel, sum, diff ;
     private String path ;
     private WaveFileReader wv ;
@@ -89,13 +89,11 @@ public class Signal {
             // - - - Obliczenie (L+R)/2 (czyli sum) i (L-R)/2 (czyli diff)
             sum = calculateAvgSum(leftChannel, rightChannel);
             diff = calculateAvgDiff(leftChannel, rightChannel);
-            N = leftChannel.length ; // długość pojedynczego kanału
         }
         // Jeśli sygnał mono to pomiń obliczanie sumy i różnicy.
         else {
             sum = null ;
             diff = null ;
-            N = data.length ;
         }
 
 
@@ -156,8 +154,5 @@ public class Signal {
         }
     }
 
-    public int getChLen() {
-        return N ;
-    }
 }
 
