@@ -50,9 +50,6 @@ public class FFT {
     }
 
     public void printMagnitude() {
-       // for (int i = 0; i < magnitude.length; i++)
-        //    System.out.print(magnitude[i] + " ");
-       // System.out.println();
         for (double x : magnitude)
             System.out.print(x + " ") ;
         System.out.println() ;
