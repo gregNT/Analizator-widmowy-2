@@ -101,15 +101,11 @@ public class MyFrame extends JFrame {
         panel.add(label5);
 
         label6 = new JLabel("Kanał:",JLabel.LEFT);
-        label6.setBounds(610, 170, 70, 30);
+        label6.setBounds(610, 200, 70, 30);
         label6.setFont(myFont);
         panel.add(label6);
 
-        label7 = new JLabel("Okno:",JLabel.LEFT);
-        label7.setBounds(610, 260, 70, 30);
-        label7.setFont(myFont);
-        panel.add(label7);
-        
+
 
         label10 = new JLabel("dt: " + dt + " ms",JLabel.LEFT);
         label10.setBounds(610, 120, 95, 30);
@@ -127,15 +123,10 @@ public class MyFrame extends JFrame {
         String[] kanalStrings = { "L", "R", "(L+R)/2", "(L-R)/2" };
         kanal = new JComboBox(kanalStrings);
         kanal.setSelectedIndex(2);
-        kanal.setBounds(680, 170, 100, 30);
+        kanal.setBounds(680, 200, 100, 30);
         panel.add(kanal);
         kanal.addActionListener(new UpdateSettings());
 
-        String[] oknoStrings = { "RECTANGULAR", "BARTLETT", "WELCH", "HANN", "HAMMING", "KAISER", "GAUSSIAN" };
-        okno = new JComboBox(oknoStrings);
-        okno.setSelectedIndex(4);
-        okno.setBounds(680, 260, 100, 30);
-        panel.add(okno);
 
 
         //file chooser
@@ -263,7 +254,9 @@ public class MyFrame extends JFrame {
     {
         fft = new FFT(waveform, channels);
         double [] fft_magn  = fft.getMagnitude();
+
         drawFFT = new DrawFFT(fft_magn, panel, 10, 230, 580, 300);
+       // drawFFT.jPanel2.repaint();
     }
 
 
